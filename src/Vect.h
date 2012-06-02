@@ -1,5 +1,10 @@
 #include <vector>
 #include <stdio.h>
+
+#define V_X 0
+#define V_Y 1
+#define V_Z 2
+
 using namespace std;
 
 class Vect
@@ -34,7 +39,12 @@ class Vect
 		for( int i = 0; i < length; i++ )
 			data.push_back(n[i]);
         }
-
+	Vect( long double X, long double Y, long double Z )
+	{
+		this->data.push_back(X);
+		this->data.push_back(Y);
+		this->data.push_back(Z);
+	}
         Vect operator + (const Vect& V) const
         {
             	Vect retVect;
@@ -49,13 +59,30 @@ class Vect
 			this->data[i]+=V.data[i];
         }
 
-        Vect operator * (const long double Cross) const
+	Vect operator * ( long double Cross)
         {
             	Vect retVect;
 	    	for( int i = 0; i < this->size(); i++)
 			retVect.data.push_back( this->data[i] * Cross );
             	return retVect;
         }
+
+	long double operator * ( const Vect& V )
+	{
+		long double ret = 0;
+		for( int i = 0; i < this->size(); i++ )
+			ret += this->data[i] * V.data[i] ;
+		return ret;
+	}
+
+	Vect operator % ( const Vect& V )
+	{
+		Vect retVect(3);
+		retVect[V_X] = this->data[V_Y] * V.data[V_Z] - this->data[V_Z] * V.data[V_Y];
+		retVect[V_Y] = this->data[V_Z] * V.data[V_X] - this->data[V_X] * V.data[V_Z];
+		retVect[V_Z] = this->data[V_X] * V.data[V_Y] - this->data[V_Y] * V.data[V_X];
+		return retVect;
+	}
 
         bool operator == (const Vect& V) const
         {
@@ -79,7 +106,7 @@ class Vect
 			this->data.push_back( V.data[i] );
         }
 	
-	long double operator [] ( int index )
+ 	long double& operator [] ( int index )
 	{
 		return data[index];
 	}
@@ -88,6 +115,7 @@ class Vect
 	{
 		data[index] = value;
 	}
+
         //double Angle()const {return atan2(Y2, long double Y1);}
 };
 
