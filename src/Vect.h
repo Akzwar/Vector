@@ -59,7 +59,7 @@ class Vect
 			this->data[i]+=V.data[i];
         }
 
-	Vect operator * ( long double Cross)
+	const Vect operator * ( long double Cross)
         {
             	Vect retVect;
 	    	for( int i = 0; i < this->size(); i++)
@@ -115,7 +115,15 @@ class Vect
 	{
 		data[index] = value;
 	}
-
+	
+	void print()
+	{
+		for(int i = 0; i < this->size(); i++)
+			if( i != this->size() - 1 )
+				printf("[%f],", this->data[i]);
+			else 
+				printf("[%f]\n", this->data[i]);
+	}
         //double Angle()const {return atan2(Y2, long double Y1);}
 };
 
