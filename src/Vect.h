@@ -4,6 +4,9 @@
 #define V_X 0
 #define V_Y 1
 #define V_Z 2
+#define V_dX 3
+#define V_dY 4
+#define V_dZ 5
 
 using namespace std;
 
@@ -59,7 +62,7 @@ class Vect
 			this->data[i]+=V.data[i];
         }
 
-	const Vect operator * ( long double Cross)
+	const Vect operator * ( long double Cross) const
         {
             	Vect retVect;
 	    	for( int i = 0; i < this->size(); i++)
@@ -67,7 +70,7 @@ class Vect
             	return retVect;
         }
 
-	long double operator * ( const Vect& V )
+	long double operator * ( const Vect& V ) const
 	{
 		long double ret = 0;
 		for( int i = 0; i < this->size(); i++ )
